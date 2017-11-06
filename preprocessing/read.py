@@ -48,7 +48,7 @@ def read(filename):
 	f = open(filename, 'r')
 	# Read lines
 	lines = f.readlines()
-	D = len(lines)
+	f.close()
 	docs = to_documents(lines)
 
 	return docs
@@ -69,3 +69,14 @@ def read_split(filename):
 	docs_test = to_documents(test)
 
 	return docs, docs_train, docs_test
+
+def read_n_docs(file, n):
+	lines = []
+	for i in xrange(n):
+		l = file.readline()
+		if l != None:
+			lines.append(l.strip())
+		else: 
+			break
+	docs = to_documents(lines)
+	return docs

@@ -18,7 +18,7 @@ def main():
 	dirname = '../result/gro/'
 	W_tests = []
 	# Test
-	for var_i in [50]:
+	for var_i in [100]:
 		for size in [1000]:
 			for k in [100]:
 				for alpha in [.1]:
@@ -29,6 +29,13 @@ def main():
 									batch_size=size, var_max_iter=var_i)
 							evaluator = Predictive(lda) # per word log predictive evaluator
 							W_tests = [evaluator.split_observed_heldout(W_test_gro)]
-							test(lda, evaluator, k, V, W, W_tests, dirname, dic, inv_dic)
+							test(lda, evaluator, k, V, W, W_tests, dirname, dic, inv_dic, \
+									predictive_per_minibatch=False)
+
+def predictive(model_file, test_file):
+	W_test = read(test_file)
+	ldaModel = OnlineLDAVB.load(model_file)
+	evaluator = Predictive(ldaModel)
+	return evaluator.predictive(W_tests)
 
 main()

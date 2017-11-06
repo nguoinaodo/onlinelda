@@ -53,7 +53,7 @@ class Predictive:
 
 	def predictive(self, W):
 		# Split 
-		W_obs, W_he = self._split_observed_heldout(W)
+		W_obs, W_he = self.split_observed_heldout(W)
 		return self._predictive(W_obs, W_he)
 
 	def predictive_splitted(self, W_obs, W_he):
