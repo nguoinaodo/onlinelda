@@ -48,16 +48,17 @@ def test(ldaModel, evaluator, K, V, W, W_tests, dirname, dic, inv_dic):
 		predictives.append(predictive)	
 	log_print(log, 'Runtime: %d' % (time.time() - start))
 		
+	# Save model
+	ldaModel.save(model_file)		
+	# Top words
+	top_idxs = ldaModel.get_top_words_indexes()
+	save_top_words(inv_dic, top_idxs, top_words_file)
 	# Save predictives
 	save_predictives(predictives, predictive_file)
 	# Plot
 	plot_2d(x=range(ldaModel.t), y=predictives, xlabel='Minibatch', \
-			ylabel='Per-words log predictive', plotfile=plotfile)
-	# Top words
-	top_idxs = ldaModel.get_top_words_indexes()
-	save_top_words(inv_dic, top_idxs, top_words_file)
-	# Save model
-	ldaModel.save(model_file)				
+			ylabel='Per-words log predictive', plotfile=plot_file)
+				
 
 def make_dir(directory):
     if not os.path.exists(directory):
